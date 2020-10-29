@@ -7,10 +7,6 @@ export function getAppointmentsForDay(state, day) {
   const dayObj = state.days.find(dayItem => dayItem.name === day);
   if (dayObj) {
     appointments = dayObj.appointments.map(item => state.appointments[item])
-/*     const appointmentsForDay = dayObj.appointments;
-    for (let i=0; i < appointmentsForDay.length; i++) {
-      appointments.push(state.appointments[appointmentsForDay[i]]);
-    } */
   }
   return appointments;
   
