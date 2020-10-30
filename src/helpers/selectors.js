@@ -10,7 +10,7 @@ export function getAppointmentsForDay(state, day) {
   }
   return appointments;
   
-}
+};
 export function getInterview(state, interview) {
   if(!interview) {
     return null;
@@ -19,4 +19,17 @@ export function getInterview(state, interview) {
   const newInterview = {...interview, interviewer};
   return newInterview;
 
-}
+};
+export function getInterviewersForDay(state, day) {
+  let interviewers = [];
+  if (!state.days) {
+    return interviewers;
+  }
+  
+  const dayObj = state.days.find(dayItem => dayItem.name === day);
+  if (dayObj) {
+    interviewers = dayObj.interviewers.map(item => state.interviewers[item])
+  }
+  return interviewers;
+  
+};

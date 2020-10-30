@@ -13,11 +13,11 @@ const InterviewerListItem = function (props){
       src={props.avatar}
       alt={props.name}
     />
-    {props.selected && props.name}  
+    {props.selected && props.name}   
     </li>
   )
 
 }
 
 
-export default InterviewerListItem;
+export default InterviewerListItem; 
