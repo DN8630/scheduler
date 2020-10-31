@@ -16,10 +16,11 @@ const Appointment = function(props) {
   const SAVING = "SAVING";
   const CONFIRM = "CONFIRM";
   const DELETING = "DELETING";
+  const EDIT = "EDIT";
 
   const initialMode = props.interview ? SHOW : EMPTY;
   const {mode, transition, back } = useVisualMode(initialMode);
-  
+
   //Save an appointment 
   function save(name, interviewer) {
     const interview = {
@@ -48,18 +49,25 @@ const Appointment = function(props) {
         student={props.interview.student} 
         interviewer={props.interview.interviewer} 
         onDelete={() => transition(CONFIRM)}
+        onEdit={() => transition(EDIT)}
         />)
       }
       {mode === EMPTY && (<Empty onAdd={() => transition(CREATE)}/>)}
       {mode === CREATE && (<Form interviewers={props.interviewers} onSave={save} onCancel={() => back()}/>)}
-      {mode === SAVING && (<Status />)}
-      {mode === DELETING && (<Status />)}
+      {mode === SAVING && (<Status message={"Saving"}/>)}
+      {mode === DELETING && (<Status message={"Deleting"}/>)}
       {mode === CONFIRM && (<Confirm 
         message={"Delete the appointment?"} 
         onCancel={() => back()} 
         onConfirm={deleteAppointment}
         />)
       }
+      {mode === EDIT && (<Form
+        name={props.interview.student} 
+        interviewers={props.interviewers}
+        interviewer={props.interview.interviewer.id}
+        onSave={save}
+        onCancel={() => back()}/>)}
     </article>
   )
 }
