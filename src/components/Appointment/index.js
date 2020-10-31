@@ -20,7 +20,6 @@ const Appointment = function(props) {
   const EDIT = "EDIT";
   const ERROR_SAVE = "ERROR_SAVE";
   const ERROR_DELETE = "ERROR_DELETE";
-  let errorMsg = "";
 
   const initialMode = props.interview ? SHOW : EMPTY;
   const {mode, transition, back } = useVisualMode(initialMode);
