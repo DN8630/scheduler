@@ -15,7 +15,6 @@ function transition(mode,replace = false) {
     setHistory([...history,mode]);
   }
   setMode(mode);
-  
 }
 
 function back() {

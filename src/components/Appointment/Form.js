@@ -36,8 +36,15 @@ function cancel(){
     </section>
     <section className="appointment__card-right">
       <section className="appointment__actions">
-        <Button danger onClick={cancel}>Cancel</Button>
-        <Button confirm onClick={props.onSave}>Save</Button>
+        <Button danger 
+          onClick={cancel}>
+          Cancel
+          </Button>
+        <Button confirm 
+          // onClick={props.onSave()}
+          onClick={() =>props.onSave(name,interviewer)}>
+          Save
+          </Button>
       </section>
     </section>
 </main>
