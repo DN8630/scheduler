@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios'
+import axios from 'axios';
+import { getAppointmentsForDay } from "../helpers/selectors"
 
 function useApplicationData() {
 
@@ -24,7 +25,20 @@ function useApplicationData() {
 
   const setDay = currentDay => setState({ ...state, currentDay });
 
-  // Book an interview
+  //Updating the spots
+  const selectedDayAppointments = getAppointmentsForDay(state, state.currentDay);
+  const spotsLeft = selectedDayAppointments.filter(appointment => appointment.interview === null).length;
+  const days = state.days.map(day => {
+    if(day.name === state.currentDay){
+      day.spots = spotsLeft;
+    }
+    return day;
+  })
+  useEffect(() => {
+    setState(prev => prev,days);
+  },[])
+
+
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],

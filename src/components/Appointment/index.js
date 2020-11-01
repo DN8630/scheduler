@@ -45,7 +45,6 @@ const Appointment = function(props) {
     .catch((err) => {
       transition(ERROR_DELETE,true)});
   }
-
   return (
 
     <article className="appointment">
