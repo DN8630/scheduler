@@ -26,17 +26,17 @@ function useApplicationData() {
   const setDay = currentDay => setState({ ...state, currentDay });
 
   //Updating the spots
-  const selectedDayAppointments = getAppointmentsForDay(state, state.currentDay);
-  const spotsLeft = selectedDayAppointments.filter(appointment => appointment.interview === null).length;
-  const days = state.days.map(day => {
-    if(day.name === state.currentDay){
-      day.spots = spotsLeft;
-    }
-    return day;
-  })
-  useEffect(() => {
-    setState(prev => prev,days);
-  },[])
+  // const selectedDayAppointments = getAppointmentsForDay(state, state.currentDay);
+  // const spotsLeft = selectedDayAppointments.filter(appointment => appointment.interview === null).length;
+  // const days = state.days.map(day => {
+  //   if(day.name === state.currentDay){
+  //     day.spots = spotsLeft;
+  //   }
+  //   return day;
+  // })
+  // useEffect(() => {
+  //   setState(prev => prev,days);
+  // },[])
 
 
   function bookInterview(id, interview) {
@@ -49,10 +49,21 @@ function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     }
+
+    const day = state.days.find(day => day.appointments.includes(id));
+    const newDay = {...day, spots: day.spots - 1};
+    const days = state.days.map(dayItem => {
+      if(dayItem.id === newDay.id) {  
+        return newDay;
+      } else {
+        return dayItem;
+      }
+     });
+
     return axios.put(`/api/appointments/${id}`, appointment)
     .then(() => setState({
         ...state,
-        appointments
+        appointments,days
       })
 
     )
@@ -68,10 +79,19 @@ function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     }
+    const day = state.days.find(day => day.appointments.includes(id));
+    const newDay = {...day, spots: day.spots + 1};
+    const days = state.days.map(dayItem => {
+      if(dayItem.id === newDay.id) {  
+        return newDay;
+      } else {
+        return dayItem;
+      }
+     });
     return axios.delete(`/api/appointments/${id}`)
     .then(() => setState({
       ...state, 
-      appointments}))
+      appointments,days }))
     // .catch((err) => console.log(err.message));
   };
 
