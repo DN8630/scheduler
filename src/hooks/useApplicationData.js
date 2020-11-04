@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { getAppointmentsForDay } from "../helpers/selectors"
+import { getAppointmentsForDay } from "../helpers/selectors";
 
 function useApplicationData() {
 
@@ -25,19 +25,17 @@ function useApplicationData() {
 
   const setDay = currentDay => setState({ ...state, currentDay });
 
-  //Updating the spots
-  // const selectedDayAppointments = getAppointmentsForDay(state, state.currentDay);
-  // const spotsLeft = selectedDayAppointments.filter(appointment => appointment.interview === null).length;
-  // const days = state.days.map(day => {
-  //   if(day.name === state.currentDay){
-  //     day.spots = spotsLeft;
-  //   }
-  //   return day;
-  // })
-  // useEffect(() => {
-  //   setState(prev => prev,days);
-  // },[])
+  function getCurrentSpots(state,day) {
+    const appointmentsForDay = getAppointmentsForDay(state,day);
+    let spots = 0;
+    for (let i = 0; i < appointmentsForDay.length; i++) {
+      if (appointmentsForDay[i].interview === null) {
+        spots++;
+      }
+    }
+    return spots;
 
+  }
 
   function bookInterview(id, interview) {
     const appointment = {
@@ -49,9 +47,13 @@ function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     }
-
+    
     const day = state.days.find(day => day.appointments.includes(id));
-    const newDay = {...day, spots: day.spots - 1};
+    let spotsLeft = getCurrentSpots(state,day.name);
+    if (state.appointments[id].interview === null) {
+      spotsLeft--;
+    }
+    const newDay = {...day, spots: spotsLeft};
     const days = state.days.map(dayItem => {
       if(dayItem.id === newDay.id) {  
         return newDay;
@@ -80,7 +82,8 @@ function useApplicationData() {
       [id]: appointment
     }
     const day = state.days.find(day => day.appointments.includes(id));
-    const newDay = {...day, spots: day.spots + 1};
+    const spotsLeft = getCurrentSpots(state,day.name) + 1;
+    const newDay = {...day, spots: spotsLeft};
     const days = state.days.map(dayItem => {
       if(dayItem.id === newDay.id) {  
         return newDay;
