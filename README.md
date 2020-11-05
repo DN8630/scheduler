@@ -7,13 +7,13 @@
 !["Application"](https://github.com/DN8630/scheduler/blob/master/public/docs/Application.png?raw=true)
 
 ### Booking an interview
-!["BookingInterview"] (https://github.com/DN8630/scheduler/blob/master/public/docs/Booking%20an%20interview.png?raw=true)
+!["Booking Interview"](https://github.com/DN8630/scheduler/blob/master/public/docs/Booking%20an%20interview.png?raw=true)
 
 ### Booked Interview
-!["BookedInterview"] (https://github.com/DN8630/scheduler/blob/master/public/docs/Booked%20Appointment.png?raw=true)
+!["Booked Interview"](https://github.com/DN8630/scheduler/blob/master/public/docs/Booked%20Appointment.png?raw=true)
 
 ### Cancel Interview
-!["CancelInterview"] (https://github.com/DN8630/scheduler/blob/master/public/docs/Cancelling%20appointment.png?raw=true)
+!["Cancel Interview"](https://github.com/DN8630/scheduler/blob/master/public/docs/Cancelling%20appointment.png?raw=true)
 
 ## Setup
 1. Fork and clone the Interview Scheduler API repository and follow the instructions in README.md to set up the API server.
